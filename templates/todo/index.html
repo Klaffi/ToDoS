@@ -1,0 +1,96 @@
+{% extends '__partials/base.html' %}
+
+{% block title %}
+TDS
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+    <h1 class="ui header">Мой список задач</h1>
+
+    {% include '__partials/messages.html' %}
+
+    {% if todos %}
+
+    <table class="ui table">
+        <thead>
+            <tr>
+                <th>Заголовок</th>
+                <th>Описание</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in todos %}
+            <tr>
+                <td>
+                    {{todo.title}}
+                </td>
+                <td>
+                    {{todo.description}}
+                </td>
+                <td>
+                    {% if todo.is_completed %}
+
+                    ДА<i class="check icon green"></i>
+
+                    {% else %}
+                    
+                    НЕТ<i class="cancel icon red"></i>
+
+                    {% endif %}
+                </td>
+                <td>
+
+                <a href={% url 'todo' todo.pk %} class="ui button">
+                    <i class="eye icon"></i>
+                </a>
+
+                <a href={% url 'todo-edit' todo.pk %} class="ui button">
+                    <i class="pencil icon"></i>
+                </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th>
+                    <a href="?filter=all">Все {{all_count}}</a>
+                </th>
+                <th>
+                    <a href="?filter=incomplete">В работе {{incompleted_count}}</a>
+                </th>
+                <th>
+                    <a href="?filter=complete">Выполнены {{completed_count}}</a>
+                </th>
+                <th>
+                </th>
+            </tr>
+
+
+        </tfoot>
+
+    </table>
+
+    {% else %}
+
+    <div class="ui message">
+        <div class="header">
+            Тут пока ничего нет
+        </div>
+        <p>Вы можете записать вашу первую задачу. <a href={% url 'create-todo' %}> Создать.</a></p>
+    </div>
+
+
+
+    {% endif %}
+
+    {% endblock content %}

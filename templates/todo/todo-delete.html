@@ -1,0 +1,18 @@
+{% extends '__partials/base.html' %}
+
+
+
+{% block content %}
+
+
+
+    <h1 class="ui header">Удалить задачу</h1>
+
+    <form method="POST" action={% url 'todo-delete' todo.id %} class="ui form">
+        {% csrf_token %}
+        <p>Вы действительно хотите удалить задачу?</p>
+        <input type="submit" class="ui button negative" value="YES">
+        <a href={% url 'todo' todo.id %}>Отмена</a>
+    </from>
+
+{% endblock content %}
