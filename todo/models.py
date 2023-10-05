@@ -11,4 +11,4 @@ class Todo(TrackingModel):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.title
+        return self.description
